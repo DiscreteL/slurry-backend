@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.loginspr.bean.UserBean;
 import com.example.loginspr.mapper.UserMapper;
 import com.example.loginspr.service.UserService;
+import com.example.loginspr.utils.TokenUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +29,8 @@ public class UserServiceImpl implements UserService {
             return Result.error("-1", "用户名或密码错误");
         }
         // 生成token
-//        String token = TokenUtils.genToken(res);
-//        res.setToken(token);
+        String token = TokenUtils.genToken(res);
+        res.setToken(token);
         return Result.success(res);
     }
 
@@ -42,16 +43,5 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
         return Result.success();
     }
-   /* @Override
-    public String addUser(UserBean user) {
-        String userName = user.getName();
-        // 用户存在
-        if(userMapper.selectUserName(userName) != null)
-            return "-1";
-        String userPassword = user.getPassword();
-        System.out.println(userName + "***" + userPassword);
-        userMapper.addUser(userName, userPassword);
-        return "200";
-    }
-*/
+
 }
