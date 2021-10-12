@@ -8,5 +8,4 @@ import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper extends BaseMapper<UserBean> {
     UserBean getInfo(String name,String password);
-
 }

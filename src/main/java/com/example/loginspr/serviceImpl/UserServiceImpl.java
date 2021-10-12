@@ -1,6 +1,7 @@
 package com.example.loginspr.serviceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.loginspr.bean.UserBean;
 import com.example.loginspr.mapper.UserMapper;
 import com.example.loginspr.service.UserService;
@@ -17,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    @PostMapping("/login")
+    @Override
     public Result<?> selectUserName(@RequestBody UserBean user) {
         QueryWrapper<UserBean> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", user.getUsername());
@@ -31,31 +32,16 @@ public class UserServiceImpl implements UserService {
 //        res.setToken(token);
         return Result.success(res);
     }
-//    @Override
-//    public String selectUserName(UserBean user) {
-//        String userName = userMapper.selectUserName(user.getName());
-//        String userPassword = user.getPassword();
-//        System.out.println(userName);
-//        System.out.println(userPassword);
-//
-//        String result = "-1";
-//
-//        // 用户不存在
-//        if (userMapper.selectUserName(userName) == null) {
-//            result = "-1";
-//            return result;
-//            //  用户存在，但密码输入错误
-//        }else if(!userMapper.selectUserPassword(userName).equals(userPassword) ){
-//            result = "0";
-//            return result;
-//            //  登录成功
-//        }else if(userMapper.selectUserPassword(userName).equals(userPassword)) {
-//            result = "200";
-//            return result;
-//        }
-//        return result;
-//    }
 
+    @Override
+    public Result<?> addUser(@RequestBody UserBean user) {
+        UserBean res = userMapper.selectOne(Wrappers.<UserBean>lambdaQuery().eq(UserBean::getUsername, user.getUsername()));
+        if (res != null) {
+            return Result.error("-1", "用户名重复");
+        }
+        userMapper.insert(user);
+        return Result.success();
+    }
    /* @Override
     public String addUser(UserBean user) {
         String userName = user.getName();

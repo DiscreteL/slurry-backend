@@ -20,10 +20,10 @@ public class UserController {
         return userService.selectUserName(user);
     }
 
-   /* @ResponseBody
+    @ResponseBody
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public String register(@RequestBody UserBean user) {
+    public Result<?> register(@RequestBody UserBean user) {
         return userService.addUser(user);
     }
-*/
+
 }
