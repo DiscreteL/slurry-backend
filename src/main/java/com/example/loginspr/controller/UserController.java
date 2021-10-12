@@ -1,6 +1,7 @@
 package com.example.loginspr.controller;
 
 import com.example.loginspr.bean.UserBean;
+import com.example.loginspr.bean.UsersBo;
 import com.example.loginspr.common.Result;
 import com.example.loginspr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,9 @@ public class UserController {
         return userService.addUser(user);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/email",method = RequestMethod.POST)
+    public Result<?> email(@RequestBody UsersBo user) {
+        return userService.email(user);
+    }
 }

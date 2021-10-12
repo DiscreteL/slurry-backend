@@ -4,6 +4,15 @@ public class Result<T> {
     private String code;
     private String msg;
     private T data;
+    public String Ecode;
+
+    public String getECode() {
+        return Ecode;
+    }
+
+    public void setEcode(String code) {
+        this.Ecode = code;
+    }
 
     public String getCode() {
         return code;
@@ -56,5 +65,8 @@ public class Result<T> {
         result.setMsg(msg);
         return result;
     }
+
+
+
 }
 
